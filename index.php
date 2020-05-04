@@ -15,22 +15,22 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/vendor/autoload.php';
 
-//echo  dirname(__FILE__);
-//echo  json_encode($_SERVER['SERVER_NAME']);
-//echo  json_encode($_SERVER);
-//die;
-
 // choose the proper settings file for US or ISR server
 //ISR server: 192.115.202.221
-if ($_SERVER['SERVER_NAME'] == "67.23.63.117") {
+if (isset($_SERVER['SERVER_NAME'])) {
+    if ($_SERVER['SERVER_NAME'] == "67.23.63.117") {
 
-    $settings = require __DIR__ . '/src/settings_us.php';
+        $settings = require __DIR__ . '/src/settings_us.php';
 
+    } else {
+
+        $settings = require __DIR__ . '/src/settings_isr.php';
+
+    }
 } else {
-
     $settings = require __DIR__ . '/src/settings_isr.php';
-
 }
+
 
 //add queries
 $queries = require __DIR__ . '/src/queries.php';
@@ -52,6 +52,15 @@ require __DIR__ . '/model/sap-orders.php';
 
 //router
 require __DIR__ . '/routes/sap-orders.php';
+
+if (defined('STDIN')) {
+
+    if (isset($argv[1]) && $argv[1] === 'sap-orders'){
+        require __DIR__ . '/console/sap-orders.php';
+    }
+
+    die('nothing to run');
+}
 
 // Run app
 $app->run();

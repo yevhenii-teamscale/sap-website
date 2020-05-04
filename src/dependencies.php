@@ -18,6 +18,7 @@ $container['renderer'] = function ($c) {
 $container['db'] = function ($c) {
     $db_settings = $c->get('settings')['db'];
     $pdo = new PDO( $db_settings['pdo_string']. $db_settings['dbname'],$db_settings['user'], $db_settings['pass']);
+    $pdo->setAttribute(PDO::SQLSRV_ATTR_ENCODING, PDO::SQLSRV_ENCODING_UTF8);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;
