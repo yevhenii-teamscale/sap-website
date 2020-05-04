@@ -48,14 +48,10 @@ require __DIR__ . '/src/middleware.php';
 
 //Site Inventory API/Order Information
 //model
-require __DIR__ . '/model/site-inventory.php';
-require __DIR__ . '/model/order-status.php';
 require __DIR__ . '/model/sap-orders.php';
 
 //router
 require __DIR__ . '/routes/sap-orders.php';
-require __DIR__ . '/routes/site-inventory.php';
-require __DIR__ . '/routes/order-status.php';
 
 // Run app
 $app->run();
