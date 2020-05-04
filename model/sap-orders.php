@@ -36,15 +36,11 @@ class SapOrders {
 
     public function insertDataToSap($data)
     {
-        $stmt = $this->db->prepare("TRUNCATE TABLE sap_orders");
+        $stmt = $this->db->prepare($this->queries['truncateSapOrders']);
         $stmt->execute();
 
-        $sqlArr = [];
         foreach ($data as $item) {
-            $stmt = $this->db->prepare("
-                INSERT INTO sap_orders 
-                (DocNum,NumatCard,CardCode,CardName,DocDate,DocTime,Aging,SlpName,WhsName,GroupName,Printed,Address,Comments,LastReportUpdate,SapSource)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $this->db->prepare($this->queries['insertToSaPDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
             $stmt->bindParam(2, $item['Web Order Num']);
             $stmt->bindParam(3, $item['Customer Code']);
@@ -61,24 +57,15 @@ class SapOrders {
             $stmt->bindParam(14, $item['LastReportUpdate']);
             $stmt->bindParam(15, $item['SAP source']);
             $stmt->execute();
-//            $sqlArr[] =
-//                "('" . $item['SAP Doc Num'] .
-//                "', '" . $item['Web Order Num'] .
-//                "', '" . $item['Customer Code'] .
-//                "', '" . addslashes($item['Customer Name']) .
-//                "', '" . $item['DocDate'] .
-//                "', '" . $item['Doc Time'] .
-//                "', '" . $item['Aging'] .
-//                "', '" . addslashes($item['SlpName']) .
-//                "', '" . addslashes($item['WhsName']) .
-//                "', '" . addslashes($item['Group Name']) .
-//                "', '" . $item['Printed'] .
-//                "', '" . $item['Shipping Address'] .
-//                "', '" . addslashes($item['Comments']) .
-//                "', '" . $item['LastReportUpdate'] .
-//                "', '" . $item['SAP source'] .
-//                "')";
         }
+    }
+
+    public function getSapOrders()
+    {
+        $stmt = $this->db->prepare($this->queries['selectSapOrders']);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
 }
