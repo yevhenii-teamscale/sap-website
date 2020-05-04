@@ -1,35 +1,27 @@
 <?php
-/*
-router for get sap orders details
-*/
+
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 
-$app->post('/sap-orders', function (Request $request,Response $response, $args) {
+$app->get('/sap-orders', function (Request $request,Response $response, $args) {
 
-    $site_details = $request->getParsedBody();
+    $ch = curl_init();
 
-    if (isset($site_details['site_id'])) {
-        $site_id = filter_var($site_details['site_id'], FILTER_VALIDATE_INT);
+    curl_setopt($ch, CURLOPT_URL,"http://10.0.0.5/site-api/sap-orders");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,
+        http_build_query(['site_id' => '1']));
 
-        $site = new Model\Site_inventory($this->db, null, $this->queries);
-        $db_id = $site->getDBIDbysite($site_id);
+    // Receive server response ...
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $db_container = "db_api_" . $db_id;
+    $server_output = curl_exec($ch);
 
-        $db_info = new Model\SapOrders($this->db, $this->queries, $this->$db_container);
+    var_dump($server_output);
 
-        $data = $db_info->getSapProducts($site_id);
-
-        return $response->withJson($data);
-
-    } else {
-
-        return false;
-
-    }
+    curl_close ($ch);
 
 });
 
