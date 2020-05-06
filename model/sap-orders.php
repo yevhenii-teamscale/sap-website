@@ -37,11 +37,14 @@ class SapOrders {
         return json_decode($resp, true);
     }
 
-    public function insertDataToSap($data)
+    public function truncateTable()
     {
         $stmt = $this->db->prepare($this->queries['truncateSapOrders']);
         $stmt->execute();
+    }
 
+    public function insertDataToSap($data)
+    {
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToSaPDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
