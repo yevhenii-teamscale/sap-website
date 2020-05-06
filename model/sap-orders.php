@@ -8,6 +8,9 @@ class SapOrders {
     protected $db_api;
     protected $queries;
 
+    public $sap_israel = 'http://10.0.0.5/site-api/sap-orders';
+    public $sap_usa = 'http://67.23.63.117/site-api/sap-orders';
+
 
     public function __construct($db, $queries, $db_api = null)
     {
@@ -16,22 +19,22 @@ class SapOrders {
         $this->db_api = $db_api;
     }
 
-    public function getDataFromSap($site_id)
+
+    public function getDataFromSap($url, $site_id)
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "http://10.0.0.5/site-api/sap-orders");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['site_id' => $site_id]));
-
-        // Receive server response ...
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $server_output = curl_exec($ch);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $url . '?site_id=' . $site_id,
+            CURLOPT_USERAGENT => 'Server'
+        ]);
+        // Send the request & save response to $resp
+        $resp = curl_exec($ch);
 
         curl_close($ch);
 
-        return json_decode($server_output, true);
+        return json_decode($resp, true);
     }
 
     public function insertDataToSap($data)

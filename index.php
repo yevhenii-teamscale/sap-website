@@ -59,6 +59,10 @@ if (defined('STDIN')) {
         require __DIR__ . '/console/sap-orders.php';
     }
 
+    if (isset($argv[1]) && $argv[1] === 'web'){
+        require __DIR__ . '/console/websites-orders.php';
+    }
+
     die('nothing to run');
 }
 
