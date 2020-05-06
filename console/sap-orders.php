@@ -30,5 +30,3 @@ $result = $sap_model->getDataFromSap($sap_model->sap_usa, 3);
 $count = count($result);
 echo 'Inserting data to DB. Items: ' . $count . PHP_EOL;
 $sap_model->insertDataToSap($result);
-
-echo 'finished' . PHP_EOL;
