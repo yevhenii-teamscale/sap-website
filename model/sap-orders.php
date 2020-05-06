@@ -8,6 +8,7 @@ class SapOrders {
     protected $db_api;
     protected $queries;
 
+    // all saps
     public $saps = [
         [
             'sap_name' => 'Sap Israel',
@@ -27,6 +28,13 @@ class SapOrders {
     ];
 
 
+    /**
+     * SapOrders constructor.
+     *
+     * @param      $db
+     * @param      $queries
+     * @param null $db_api
+     */
     public function __construct($db, $queries, $db_api = null)
     {
         $this->db = $db;
@@ -35,6 +43,13 @@ class SapOrders {
     }
 
 
+    /**
+     * make request to SAP
+     * return the array with data
+     * @param $url
+     * @param $site_id
+     * @return mixed
+     */
     public function getDataFromSap($url, $site_id)
     {
         $ch = curl_init();
@@ -52,13 +67,20 @@ class SapOrders {
         return json_decode($resp, true);
     }
 
+    /**
+     * truncate the "sap_orders" table
+     */
     public function truncateTable()
     {
         $stmt = $this->db->prepare($this->queries['truncateSapOrders']);
         $stmt->execute();
     }
 
-    public function insertDataToTable($data)
+    /**
+     * insert data to SAP Orders table
+     * @param $data
+     */
+    public function insertDataToSapOrdersTable($data)
     {
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToSaPDB']);
@@ -81,6 +103,10 @@ class SapOrders {
         }
     }
 
+    /**
+     * return all data from sap_orders table
+     * @return mixed
+     */
     public function getSapOrders()
     {
         $stmt = $this->db->prepare($this->queries['selectSapOrders']);
@@ -88,5 +114,4 @@ class SapOrders {
 
         return $stmt->fetchAll();
     }
-
 }

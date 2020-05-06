@@ -5,7 +5,6 @@ require __DIR__ . './../vendor/autoload.php';
 
 $sap_model = new \Model\SapOrders($container['db'], $container['settings']['queries']);
 
-
 echo 'Clear the table' . PHP_EOL;
 $sap_model->truncateTable();
 
@@ -20,7 +19,7 @@ foreach ($sap_model->saps as $sap) {
 
     echo 'Inserting data to DB. Rows: ' . $count . PHP_EOL;
 
-    $sap_model->insertDataToTable($data);
+    $sap_model->insertDataToSapOrdersTable($data);
 }
 
 echo 'Inserted: ' . $countAllRows . PHP_EOL;
