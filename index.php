@@ -54,16 +54,19 @@ require __DIR__ . '/model/sap-orders.php';
 require __DIR__ . '/routes/sap-orders.php';
 
 if (defined('STDIN')) {
+    $info = 'Nothing to run';
 
     if (isset($argv[1]) && $argv[1] === 'sap-orders'){
         require __DIR__ . '/console/sap-orders.php';
+        $info = 'Done';
     }
 
     if (isset($argv[1]) && $argv[1] === 'web'){
         require __DIR__ . '/console/websites-orders.php';
+        $info = 'Done';
     }
 
-    die('nothing to run');
+    die($info);
 }
 
 // Run app
