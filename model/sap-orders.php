@@ -8,8 +8,23 @@ class SapOrders {
     protected $db_api;
     protected $queries;
 
-    public $sap_israel = 'http://10.0.0.5/site-api/sap-orders';
-    public $sap_usa = 'http://67.23.63.117/site-api/sap-orders';
+    public $saps = [
+        [
+            'sap_name' => 'Sap Israel',
+            'site_id' => 1,
+            'sap_url' => 'http://10.0.0.5/site-api/sap-orders'
+        ],
+        [
+            'sap_name' => 'Sap USA',
+            'site_id' => 1,
+            'sap_url' => 'http://67.23.63.117/site-api/sap-orders'
+        ],
+        [
+            'sap_name' => 'Sap USA',
+            'site_id' => 3,
+            'sap_url' => 'http://67.23.63.117/site-api/sap-orders'
+        ],
+    ];
 
 
     public function __construct($db, $queries, $db_api = null)
@@ -27,7 +42,7 @@ class SapOrders {
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $url . '?site_id=' . $site_id,
-            CURLOPT_USERAGENT => 'Server'
+            CURLOPT_USERAGENT => 'Server',
         ]);
         // Send the request & save response to $resp
         $resp = curl_exec($ch);
@@ -43,7 +58,7 @@ class SapOrders {
         $stmt->execute();
     }
 
-    public function insertDataToSap($data)
+    public function insertDataToTable($data)
     {
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToSaPDB']);
