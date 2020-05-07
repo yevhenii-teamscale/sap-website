@@ -11,7 +11,7 @@ $countAllRows = 0;
 foreach ($website->websites as $site) {
     echo 'Getting data from ' . $site['name'] . PHP_EOL;
 
-    $data = $website->getDataFromSap($site['url']);
+    $data = $website->getDataFromWebsite($site['url']);
 
     $count = count($data);
     $countAllRows += $count;

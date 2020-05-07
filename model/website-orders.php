@@ -38,7 +38,7 @@ class WebsiteOrders {
      * @param $url
      * @return mixed
      */
-    public function getDataFromSap($url)
+    public function getDataFromWebsite($url)
     {
 //        $ch = curl_init();
 //
