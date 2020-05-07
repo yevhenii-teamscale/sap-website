@@ -2,21 +2,23 @@
 
 require __DIR__ . './../vendor/autoload.php';
 
+$website = new \Model\WebsiteOrders($container['db'], $container['settings']['queries']);
 
+echo 'Clear website_orders table' . PHP_EOL;
+$website->truncateTable();
 
-$ch = curl_init();
+$countAllRows = 0;
+foreach ($website->websites as $site) {
+    echo 'Getting data from ' . $site['name'] . PHP_EOL;
 
-curl_setopt($ch, CURLOPT_URL, "https://tresor-rare.com/index.php?route=papi/bi_api");
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['site_id' => 1]));
-$header = ["Accept: application/json", "test" => 'yes'];
-curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    $data = $website->getDataFromSap($site['url']);
 
-// Receive server response ...
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $count = count($data);
+    $countAllRows += $count;
 
-$server_output = curl_exec($ch);
+    echo 'Inserting data to DB. Rows: ' . $count . PHP_EOL;
 
-curl_close($ch);
+    $website->insertDataToWebsiteOrdersTable($data);
+}
 
-var_dump($server_output);
+echo 'Inserted: ' . $countAllRows . PHP_EOL;

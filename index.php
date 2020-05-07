@@ -46,12 +46,15 @@ require __DIR__ . '/src/dependencies.php';
 // Register middleware
 require __DIR__ . '/src/middleware.php';
 
-//Site Inventory API/Order Information
-//model
+
+//models
 require __DIR__ . '/model/sap-orders.php';
+require __DIR__ . '/model/website-orders.php';
 
 //router
 require __DIR__ . '/routes/sap-orders.php';
+require __DIR__ . '/routes/website-orders.php';
+
 
 if (defined('STDIN')) {
     $info = 'Nothing to run';

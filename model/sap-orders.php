@@ -83,7 +83,7 @@ class SapOrders {
     public function insertDataToSapOrdersTable($data)
     {
         foreach ($data as $item) {
-            $stmt = $this->db->prepare($this->queries['insertToSaPDB']);
+            $stmt = $this->db->prepare($this->queries['insertToSapDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
             $stmt->bindParam(2, $item['Web Order Num']);
             $stmt->bindParam(3, $item['Customer Code']);
