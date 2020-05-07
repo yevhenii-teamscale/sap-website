@@ -86,6 +86,7 @@ class WebsiteOrders {
      */
     public function insertDataToWebsiteOrdersTable(array $data)
     {
+        $date = date('Y-m-d H:i:s');
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToWebsiteDB']);
             $stmt->bindParam(1, $item['order_id']);
@@ -98,6 +99,7 @@ class WebsiteOrders {
             $stmt->bindParam(8, $item['country']);
             $stmt->bindParam(9, $item['address']);
             $stmt->bindParam(10, $item['payment_method']);
+            $stmt->bindParam(11, $date);
             $stmt->execute();
         }
     }
