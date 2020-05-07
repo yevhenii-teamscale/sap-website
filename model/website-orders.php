@@ -70,7 +70,7 @@ class WebsiteOrders {
      *
      * @param $data
      */
-    public function insertDataToWebsiteOrdersTable($data)
+    public function insertDataToWebsiteOrdersTable(array $data)
     {
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToWebsiteDB']);
