@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use GuzzleHttp\Client;
+
 class WebsiteOrders {
 
     protected $db;
@@ -40,34 +42,10 @@ class WebsiteOrders {
      */
     public function getDataFromWebsite($url)
     {
-//        $ch = curl_init();
-//
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_POST, 1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['site_id' => $site_id]));
-//
-//        // Receive server response ...
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//
-//        $server_output = curl_exec($ch);
-//
-//        curl_close($ch);
-//
-//        return json_decode($server_output, true);
+        $client = new Client();
+        $response = $client->get($url);
 
-        $ch = curl_init();
-
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $url,
-            CURLOPT_USERAGENT => 'Server',
-        ]);
-        // Send the request & save response to $resp
-        $resp = curl_exec($ch);
-
-        curl_close($ch);
-
-        return json_decode($resp, true);
+        return json_decode($response->getBody(), true);
     }
 
     /**
