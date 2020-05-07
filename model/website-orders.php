@@ -43,7 +43,7 @@ class WebsiteOrders {
     public function getDataFromWebsite($url)
     {
         $client = new Client();
-        $response = $client->get($url);
+        $response = $client->post($url);
 
         return json_decode($response->getBody(), true);
     }
