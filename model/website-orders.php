@@ -13,6 +13,10 @@ class WebsiteOrders {
     // list of websites
     public $websites = [
         [
+            'name' => 'Premierdeadsea-europe',
+            'url' => 'https://www.premierdeadsea-europe.com/index.php?route=papi/bi_api',
+        ],
+        [
             'name' => 'Gratiae USA',
             'url' => 'https://gratiae-usa.com/index.php?route=papi/bi_api',
         ],
