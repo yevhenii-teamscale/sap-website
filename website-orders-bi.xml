@@ -1,0 +1,47 @@
+<modification>
+
+	<id>website-orders-bi</id>
+	<version>2020-05-08</version>
+	<vqmver>2.3.0</vqmver>
+	<author>Yevhenii</author>
+	<email>yevhenii@gmial.com</email>
+
+	<!-- ADMIN -->
+	<file name="system/engine/action.php" error="skip">
+		<operation error="skip">
+			<search position="after"><![CDATA[
+				class ModelSaleOrder extends Model {
+			]]></search>
+			<add trim="true"><![CDATA[
+				// website orders BI
+				public function getOrdersSap() {
+					$sql = "SELECT
+					o.order_id,
+					CONCAT(o.firstname, ' ', o.lastname) AS customer,
+					(SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS status,
+					o.total,
+					CASE
+						WHEN s.status = 1
+							THEN 'sent'
+						ELSE 'N/A'
+					END AS sap_status,
+					o.date_added,
+					o.store_url AS website,
+					o.shipping_country AS country,
+					CONCAT(o.shipping_city, ' ', o.shipping_address_1) AS address,
+					o.payment_method
+					FROM `" . DB_PREFIX . "order` o
+					LEFT JOIN order_sap s ON o.order_id = s.order_id
+					WHERE o.order_status_id != 0
+					ORDER BY o.order_id DESC";
+
+					$query = $this->db->query($sql);
+
+					return $query->rows;
+				}
+				// end website orders BI
+			]]></add>
+		</operation>
+	</file>
+
+</modification>
