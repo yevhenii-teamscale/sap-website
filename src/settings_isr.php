@@ -10,6 +10,7 @@ return [
         ],
 
         'token' => 'Prem465#0!7',
+        'api_key' => '132ghjjkl34',
 
         //database settings
         //site management database and user

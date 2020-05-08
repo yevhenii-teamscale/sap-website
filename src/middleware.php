@@ -13,13 +13,14 @@ use Slim\Middleware\TokenAuthentication;
 
 //define token from settings
 define('PASSWORD', $settings['settings']['token']);
+define('API_KEY', $settings['settings']['api_key']);
 
 //Authentication function
 $authenticator = function($request, TokenAuthentication $tokenAuth) {
-    
+
     //  Try find authorization token via header, parameters, cookie or attribute
     //  If token not found, return response with status 401 (unauthorized)
-    
+
     $token = $tokenAuth->findToken($request);
 
     if($token != PASSWORD){
@@ -27,7 +28,7 @@ $authenticator = function($request, TokenAuthentication $tokenAuth) {
     }
 
 }; //$authenticator = function($request, TokenAuthentication $tokenAuth) {
- 
+
 /**
  * Add token authentication middleware
  */
@@ -37,5 +38,5 @@ $authenticator = function($request, TokenAuthentication $tokenAuth) {
     'passthrough' => [],//all routes that will not pass Authentication need to add here
     'authenticator' => $authenticator,
     'secure' => false
- 
+
 ]));

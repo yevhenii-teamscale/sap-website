@@ -7,8 +7,8 @@ use GuzzleHttp\Client;
 class WebsiteOrders {
 
     protected $db;
-    protected $db_api;
     protected $queries;
+    protected $myIp;
 
     // list of websites
     public $websites = [
@@ -24,13 +24,12 @@ class WebsiteOrders {
      *
      * @param      $db
      * @param      $queries
-     * @param null $db_api
      */
-    public function __construct($db, $queries, $db_api = null)
+    public function __construct($db, $queries)
     {
         $this->db = $db;
         $this->queries = $queries;
-        $this->db_api = $db_api;
+        $this->myIp = $this->getIP();
     }
 
     /**
@@ -43,7 +42,12 @@ class WebsiteOrders {
     public function getDataFromWebsite($url)
     {
         $client = new Client();
-        $response = $client->post($url);
+        $response = $client->request('POST', $url, [
+            'form_params' => [
+                'key' => sha1($this->myIp . API_KEY),
+            ],
+
+        ]);
 
         return json_decode($response->getBody(), true);
     }
@@ -65,6 +69,7 @@ class WebsiteOrders {
     public function insertDataToWebsiteOrdersTable(array $data)
     {
         $date = date('Y-m-d H:i:s');
+
         foreach ($data as $item) {
             $stmt = $this->db->prepare($this->queries['insertToWebsiteDB']);
             $stmt->bindParam(1, $item['order_id']);
@@ -93,5 +98,13 @@ class WebsiteOrders {
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getIP()
+    {
+        return file_get_contents("http://ipecho.net/plain");
     }
 }
