@@ -11,4 +11,5 @@ return [
     "selectWebsiteOrders" => "SELECT * FROM website_orders",
     "truncateSapOrders" => "TRUNCATE TABLE sap_orders",
     "truncateWebsiteOrders" => "TRUNCATE TABLE website_orders",
+    "selectWebsites" => "SELECT name, url FROM websites",
 ];

@@ -11,21 +11,7 @@ class WebsiteOrders {
     protected $myIp;
 
     // list of websites
-    public $websites = [
-        [
-            'name' => 'Premierdeadsea-europe',
-            'url' => 'https://www.premierdeadsea-europe.com/index.php?route=papi/bi_api',
-        ],
-        [
-            'name' => 'Gratiae USA',
-            'url' => 'https://gratiae-usa.com/index.php?route=papi/bi_api',
-        ],
-        [
-            'name' => 'Tresor Rare',
-            'url' => 'https://tresor-rare.com/index.php?route=papi/bi_api',
-        ],
-    ];
-
+    public $websites;
 
     /**
      * WebsiteOrders constructor.
@@ -38,6 +24,11 @@ class WebsiteOrders {
         $this->db = $db;
         $this->queries = $queries;
         $this->myIp = $this->getIP();
+
+        $stmt = $this->db->prepare($this->queries['selectWebsites']);
+        $stmt->execute();
+
+        $this->websites =  $stmt->fetchAll();
     }
 
     /**
