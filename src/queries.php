@@ -12,4 +12,5 @@ return [
     "truncateSapOrders" => "TRUNCATE TABLE sap_orders",
     "truncateWebsiteOrders" => "TRUNCATE TABLE website_orders",
     "selectWebsites" => "SELECT name, url FROM websites",
+    "selectWebsiteByName" => "SELECT name, url FROM websites WHERE name = ?",
 ];

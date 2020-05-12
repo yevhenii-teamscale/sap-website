@@ -7,8 +7,17 @@ $website = new \Model\WebsiteOrders($container['db'], $container['settings']['qu
 echo 'Clear website_orders table' . PHP_EOL;
 $website->truncateTable();
 
+$websitesList = $website->websites;
+if (isset($argv[2])){
+    $websitesList = $website->getWebsite($argv[2]);
+
+    if (empty($websitesList)){
+        die('Nothing found');
+    }
+}
+
 $countAllRows = 0;
-foreach ($website->websites as $site) {
+foreach ($websitesList as $site) {
     echo 'Getting data from ' . $site['name'] . PHP_EOL;
 
     $data = $website->getDataFromWebsite($site['url']);

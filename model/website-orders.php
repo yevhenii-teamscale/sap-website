@@ -106,4 +106,17 @@ class WebsiteOrders {
     {
         return file_get_contents("http://ipecho.net/plain");
     }
+
+    /**
+     * get websites by name
+     * @param $name
+     * @return mixed
+     */
+    public function getWebsite($name)
+    {
+        $stmt = $this->db->prepare($this->queries['selectWebsiteByName']);
+        $stmt->execute([$name]);
+
+        return $stmt->fetchAll();
+    }
 }
