@@ -22,6 +22,11 @@ class SapOrders {
         ],
         [
             'sap_name' => 'Sap USA',
+            'site_id' => 2,
+            'sap_url' => 'http://67.23.63.117/site-api/sap-orders'
+        ],
+        [
+            'sap_name' => 'Sap USA',
             'site_id' => 3,
             'sap_url' => 'http://67.23.63.117/site-api/sap-orders'
         ],
