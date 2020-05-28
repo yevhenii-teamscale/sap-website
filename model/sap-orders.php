@@ -104,8 +104,9 @@ class SapOrders {
             $stmt->bindParam(13, $item['Comments']);
             $stmt->bindParam(14, $item['LastReportUpdate']);
             $stmt->bindParam(15, $item['SAP source']);
+            $stmt->bindParam(16, $item['InvntSttus']);
             $stmt->bindParam(16, $item['TrackNo']);
-            $stmt->bindParam(17, $item['Shipping Type']);
+            $stmt->bindParam(16, $item['ShippingType']);
             $stmt->execute();
         }
     }
