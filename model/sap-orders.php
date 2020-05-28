@@ -87,7 +87,11 @@ class SapOrders {
      */
     public function insertDataToSapOrdersTable($data)
     {
+
         foreach ($data as $item) {
+            if ($item['SAP Doc Num'] == 184810){
+                var_dump($item);
+            }
             $stmt = $this->db->prepare($this->queries['insertToSapDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
             $stmt->bindParam(2, $item['Web Order Num']);
