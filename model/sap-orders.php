@@ -89,8 +89,6 @@ class SapOrders {
     {
 
         foreach ($data as $item) {
-            var_dump($item);
-            die;
             $stmt = $this->db->prepare($this->queries['insertToSapDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
             $stmt->bindParam(2, $item['Web Order Num']);
