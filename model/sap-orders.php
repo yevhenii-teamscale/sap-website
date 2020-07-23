@@ -89,7 +89,8 @@ class SapOrders {
     {
 
         foreach ($data as $item) {
-
+            var_dump($item);
+            die;
             $stmt = $this->db->prepare($this->queries['insertToSapDB']);
             $stmt->bindParam(1, $item['SAP Doc Num']);
             $stmt->bindParam(2, $item['Web Order Num']);
@@ -109,6 +110,10 @@ class SapOrders {
             $stmt->bindParam(16, $item['InvntSttus']);
             $stmt->bindParam(17, $item['TrackNo']);
             $stmt->bindParam(18, $item['ShippingType']);
+            $stmt->bindParam(19, $item['website']);
+            $stmt->bindParam(20, $item['Billing Sap']);
+            $stmt->bindParam(21, $item['Shipping Sap']);
+            $stmt->bindParam(22, $item['Billing Type']);
             $stmt->execute();
         }
     }
