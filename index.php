@@ -18,7 +18,7 @@ require __DIR__ . '/vendor/autoload.php';
 // choose the proper settings file for US or ISR server
 //ISR server: 192.115.202.221
 if (isset($_SERVER['SERVER_NAME'])) {
-    if ($_SERVER['SERVER_NAME'] == "67.23.63.117") {
+    if ($_SERVER['SERVER_NAME'] == "52.247.117.84") {
 
         $settings = require __DIR__ . '/src/settings_us.php';
 

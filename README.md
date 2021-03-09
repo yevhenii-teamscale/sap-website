@@ -3,7 +3,7 @@
 #### REST API application based on Slim Framework 3
 
 ### URLs:
-USA: http://67.23.63.117/site-api/
+USA: http://52.247.117.84/site-api/
 
 ISRAEL: http://192.115.202.221/site-api/
 
