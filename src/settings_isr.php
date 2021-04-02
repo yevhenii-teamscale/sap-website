@@ -17,14 +17,14 @@ return [
         'db' => [
             'pdo_string' => 'sqlsrv:Server=10.0.0.5;Database=',
             'user' => 'sa',
-            'pass' => 'B1Admin',
+            'pass' => 'B1admin',
             'dbname' => 'Website_SAP_API',
         ],
         //SAP databases and use
        'db_api' => [
            'pdo_string' => 'sqlsrv:Server=10.0.0.5;Database=',
            'user' => 'sa',
-           'pass' => 'B1Admin',
+           'pass' => 'B1admin',
             'dbname_site1' => 'Premier_Ltd'
             //,'dbname_site2' => 'AVOLOGI',
         ],
