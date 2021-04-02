@@ -1,5 +1,5 @@
 {
-    "name": "site-api",
+    "name": "avologi/site-api",
     "description": "A REST API application for the inventory checking based on Slim Framework",
     "keywords": ["microframework", "rest", "router", "psr7"],
     "homepage": "https://github.com/avologi/site-inventory-usa.git",
