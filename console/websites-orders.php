@@ -27,7 +27,9 @@ foreach ($websitesList as $site) {
 
     echo 'Inserting data to DB. Rows: ' . $count . PHP_EOL;
 
-    $website->insertDataToWebsiteOrdersTable($data);
+    if($data != null){
+        $website->insertDataToWebsiteOrdersTable($data);
+    }
 }
 
 echo 'Inserted: ' . $countAllRows . PHP_EOL;
